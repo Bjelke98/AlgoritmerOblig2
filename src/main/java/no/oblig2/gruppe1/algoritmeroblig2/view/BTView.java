@@ -23,7 +23,7 @@ public class BTView extends Pane {
 
     private Status status = Status.BLANK;
     private double radius = 15; // Kan endres i GUI
-    private double vGap = 50; // Kan endres i GUI
+    private double vGap = 100; // Kan endres i GUI
 
     private BST<Integer> tree = new BST<>();
 
@@ -51,10 +51,10 @@ public class BTView extends Pane {
         if (root.right != null){
             displayTree(root.right, x+hGap, y+vGap, hGap/2, curr);
         }
-        getChildren().addAll(curr, curr.centerText);
         if(prev!=null){
             drawConnectingLine(prev, curr);
         }
+        getChildren().addAll(curr, curr.centerText);
     }
 
     private void drawConnectingLine(DisplayNode<Integer> prev, DisplayNode<Integer> curr){
