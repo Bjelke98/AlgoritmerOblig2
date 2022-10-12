@@ -9,6 +9,8 @@ public interface Tree<E> extends Collection<E> {
     boolean delete(E e);
     int getSize();
 
+    BST.TreeNode<E> getRoot();
+
     @Override
     default boolean isEmpty() {
         return size() == 0;

@@ -5,10 +5,10 @@ import java.util.Iterator;
 
 public class BST<E extends Comparable<E>> implements Tree<E> {
 
-    static class TreeNode<E> {
-        protected E element;
-        protected TreeNode<E> left;
-        protected TreeNode<E> right;
+    public static class TreeNode<E> {
+        public E element;
+        public TreeNode<E> left;
+        public TreeNode<E> right;
     }
 
     protected TreeNode<E> root;
@@ -118,6 +118,11 @@ public class BST<E extends Comparable<E>> implements Tree<E> {
     @Override
     public int getSize() {
         return size;
+    }
+
+    @Override
+    public TreeNode<E> getRoot() {
+        return root;
     }
 
     @Override
