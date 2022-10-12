@@ -22,15 +22,14 @@ public class App extends Application {
         BorderPane root = new BorderPane();
 
         BST<Integer> bst = new BST<>();
-        bst.addAll(Arrays.asList(1, 2, 3, 4));
+        bst.addAll(Arrays.asList(3, 2, 1, 4));
 
         BTView treeView = new BTView(bst);
-
-        treeView.setPrefWidth(600);
-        treeView.setPrefHeight(400);
+        treeView.setMinWidth(600);
+        treeView.setMinHeight(400);
 
         treeView.displayTree();
-        treeView.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+        treeView.setBackground(new Background(new BackgroundFill(Color.BEIGE, CornerRadii.EMPTY, Insets.EMPTY)));
 
         root.setCenter(treeView);
 

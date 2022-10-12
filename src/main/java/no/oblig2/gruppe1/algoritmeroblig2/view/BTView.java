@@ -2,6 +2,7 @@ package no.oblig2.gruppe1.algoritmeroblig2.view;
 
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.CubicCurve;
 import no.oblig2.gruppe1.algoritmeroblig2.model.BST;
 
 public class BTView extends Pane {
@@ -23,7 +24,6 @@ public class BTView extends Pane {
     private Status status = Status.BLANK;
     private double radius = 15; // Kan endres i GUI
     private double vGap = 50; // Kan endres i GUI
-    private double hGap = 50; // Kan endres i GUI
 
     private BST<Integer> tree = new BST<>();
 
@@ -39,30 +39,28 @@ public class BTView extends Pane {
     public void displayTree(){
         getChildren().clear();
         if (tree.getRoot() != null) {
-            displayTree(tree.getRoot(), getWidth()/2, vGap, getWidth()/4, null);
+            displayTree(tree.getRoot(), getMinWidth()/2, vGap, getMinWidth()/4, null);
         }
-        for (Node n : getChildren())
-            System.out.println(n);
     }
 
     private void displayTree(BST.TreeNode<Integer> root, double x, double y, double hGap, DisplayNode<Integer> prev){
-        DisplayNode<Integer> curr = new DisplayNode<>(root.element, radius);
-        curr.setLayoutX(x-curr.getLayoutBounds().getWidth());
-        curr.setLayoutY(y-curr.getLayoutBounds().getHeight());
+        DisplayNode<Integer> curr = new DisplayNode<>(root.element, x, y, radius);
         if (root.left != null){
             displayTree(root.left, x-hGap, y+vGap, hGap/2, curr);
         }
         if (root.right != null){
             displayTree(root.right, x+hGap, y+vGap, hGap/2, curr);
         }
-        getChildren().add(curr);
+        getChildren().addAll(curr, curr.centerText);
         if(prev!=null){
             drawConnectingLine(prev, curr);
         }
     }
 
     private void drawConnectingLine(DisplayNode<Integer> prev, DisplayNode<Integer> curr){
-
+        ConnectedLine<Integer> line = new ConnectedLine<>(prev, curr);
+        getChildren().add(line);
+//        getChildren().addAll(line.controlPoints);
     }
 
     public Status getStatus() {
