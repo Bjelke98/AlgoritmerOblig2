@@ -22,7 +22,7 @@ public class App extends Application {
         BorderPane root = new BorderPane();
 
         BST<Integer> bst = new BST<>();
-        bst.addAll(Arrays.asList(3, 2, 1, 4));
+        bst.addAll(Arrays.asList(5, 3, 4, 2, 1, 8, 7, 9, 6));
 
         BTView treeView = new BTView(bst);
         treeView.setMinWidth(600);

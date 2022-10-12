@@ -23,7 +23,7 @@ public class BTView extends Pane {
 
     private Status status = Status.BLANK;
     private double radius = 15; // Kan endres i GUI
-    private double vGap = 100; // Kan endres i GUI
+    private double vGap = 50; // Kan endres i GUI
 
     private BST<Integer> tree = new BST<>();
 

@@ -32,10 +32,14 @@ public class ConnectedLine<E> extends CubicCurve {
         setStrokeWidth(3);
 
         startXProperty().bind(prev.centerXProperty());
-        startYProperty().bind(prev.centerYProperty().add(prev.radiusProperty()));
+        startYProperty().bind(prev.centerYProperty());
+        // connect to edges
+        //startYProperty().bind(prev.centerYProperty().add(prev.radiusProperty()));
 
         endXProperty().bind(curr.centerXProperty());
-        endYProperty().bind(curr.centerYProperty().subtract(curr.radiusProperty()));
+        endYProperty().bind(curr.centerYProperty());
+        // connect to edges
+        // endYProperty().bind(curr.centerYProperty().subtract(curr.radiusProperty()));
 
         controlX1Property().bind(prev.centerXProperty());
         controlY1Property().bind(prev.centerYProperty().add(curr.centerYProperty().subtract(prev.centerYProperty())));
