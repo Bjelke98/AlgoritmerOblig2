@@ -9,6 +9,13 @@ public class BST<E extends Comparable<E>> implements Tree<E> {
         public E element;
         public TreeNode<E> left;
         public TreeNode<E> right;
+
+        public TreeNode(){
+
+        }
+        public TreeNode(E e){
+            element = e;
+        }
     }
 
     protected TreeNode<E> root;
@@ -19,10 +26,8 @@ public class BST<E extends Comparable<E>> implements Tree<E> {
         addAll(Arrays.asList(objects));
     }
 
-    private TreeNode<E> createNewNode(E e){
-        TreeNode<E> node = new TreeNode<>();
-        node.element = e;
-        return node;
+    protected TreeNode<E> createNewNode(E e){
+        return new TreeNode<E>(e);
     }
 
     @Override
