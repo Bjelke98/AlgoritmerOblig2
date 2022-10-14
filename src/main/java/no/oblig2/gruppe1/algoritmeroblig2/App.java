@@ -3,12 +3,14 @@ package no.oblig2.gruppe1.algoritmeroblig2;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import no.oblig2.gruppe1.algoritmeroblig2.model.AVLTree;
 import no.oblig2.gruppe1.algoritmeroblig2.model.BST;
 import no.oblig2.gruppe1.algoritmeroblig2.view.BTView;
 
@@ -23,8 +25,18 @@ public class App extends Application {
 
         BST<Integer> bst = new BST<>();
         bst.addAll(Arrays.asList(5, 3, 4, 2, 1, 8, 7, 9, 6));
+        AVLTree<Integer> avl = new AVLTree<>();
+        avl.addAll(Arrays.asList(5, 3, 4, 2, 1, 8, 7, 9, 6));
 
         BTView treeView = new BTView(bst);
+        BTView avlTree = new BTView(avl);
+
+        avlTree.setMinWidth(600);
+        avlTree.setMinHeight(400);
+
+        avlTree.displayTree();
+        avlTree.setBackground(new Background(new BackgroundFill(Color.BEIGE, CornerRadii.EMPTY, Insets.EMPTY)));
+
         treeView.setMinWidth(600);
         treeView.setMinHeight(400);
 
@@ -32,6 +44,7 @@ public class App extends Application {
         treeView.setBackground(new Background(new BackgroundFill(Color.BEIGE, CornerRadii.EMPTY, Insets.EMPTY)));
 
         root.setCenter(treeView);
+        root.setTop(avlTree);
 
         Scene scene = new Scene(root, 600, 400);
         stage.setTitle("Algoritmer Oblig2 Gruppe1");
