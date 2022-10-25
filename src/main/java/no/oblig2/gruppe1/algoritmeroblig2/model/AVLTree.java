@@ -30,7 +30,70 @@ public class AVLTree<E extends Comparable<E>> extends BST<E>{
     }
     @Override
     public boolean delete(E e) {
-        return super.delete(e);
+        if(root == null) return false;
+
+        TreeNode<E> parent = null;
+        TreeNode<E> current = root;
+
+        while (current != null){
+            if (e.compareTo(current.element)<0){
+                parent = current;
+                current = current.right;
+            } else if (e.compareTo(current.element) > 0){
+                parent = current;
+                current = current.left;
+            }else {
+                break;
+            }
+        }
+        //findNode(current, parent, e);
+        if (current == null) return false;
+
+        if (current.left == null){
+            if (parent == null){
+                root = current.right;
+            } else {
+                if (e.compareTo(parent.element) < 0){
+                    parent.left = current.right;
+                } else {
+                    parent.right = current.right;
+                }
+                balancePath(parent.element);
+            }
+        } else  {
+            TreeNode<E> parentOfRightMost = current;
+            TreeNode<E> rightMost = current.left;
+
+            while (rightMost.right != null){
+                parentOfRightMost = rightMost;
+                rightMost = rightMost.right;
+            }
+
+            current.element = rightMost.element;
+
+            if (parentOfRightMost.right == rightMost){
+                parentOfRightMost.right = rightMost.left;
+            } else {
+                parentOfRightMost.left = rightMost.left;
+
+                balancePath(parentOfRightMost.element);
+            }
+        }
+        size--;
+        return true;
+    }
+
+    private void findNode(TreeNode<E> current, TreeNode<E> parent, E node){
+        if (current != null){
+            if (node.compareTo(current.element)<0){
+                parent = current;
+                current = current.right;
+            } else if (node.compareTo(current.element) > 0){
+                parent = current;
+                current = current.left;
+            }
+            findNode(current, parent, node);
+        }
     }
 
 
