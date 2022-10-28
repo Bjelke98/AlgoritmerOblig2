@@ -1,7 +1,12 @@
 package no.oblig2.gruppe1.algoritmeroblig2.view;
 
+import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.CubicCurve;
 import no.oblig2.gruppe1.algoritmeroblig2.model.BST;
 
@@ -34,6 +39,8 @@ public class BTView extends Pane {
     public BTView(BST<Integer> tree){
         this.tree = tree;
         setStatus(tree.size()>0?Status.NOT_EMPTY:Status.EMPTY);
+        setMinWidth(1200);
+        setBackground(new Background(new BackgroundFill(Color.BEIGE, CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
     public void displayTree(){
@@ -60,11 +67,9 @@ public class BTView extends Pane {
     private void drawConnectingLine(DisplayNode<Integer> prev, DisplayNode<Integer> curr){
         ConnectedLine<Integer> line = new ConnectedLine<>(prev, curr);
         getChildren().add(line);
-//        getChildren().addAll(line.controlPoints);
-    }
 
-    public Status getStatus() {
-        return status;
+        // Viser Cubic control points for debug.
+//        getChildren().addAll(line.controlPoints);
     }
 
     private void setStatus(Status status) {

@@ -41,11 +41,28 @@ public class ConnectedLine<E> extends CubicCurve {
         // connect to edges
         // endYProperty().bind(curr.centerYProperty().subtract(curr.radiusProperty()));
 
-        controlX1Property().bind(prev.centerXProperty());
-        controlY1Property().bind(prev.centerYProperty().add(curr.centerYProperty().subtract(prev.centerYProperty())));
+        controlX1Property().bind(
+                prev.centerXProperty()
+        );
+        controlY1Property().bind(
+                prev.centerYProperty().add(curr.centerYProperty().subtract(prev.centerYProperty()))
+        );
 
-        controlX2Property().bind(curr.centerXProperty());
-        controlY2Property().bind(curr.centerYProperty().subtract(curr.centerYProperty().subtract(prev.centerYProperty())));
+        controlX2Property().bind(
+                curr.centerXProperty()
+        );
+        controlY2Property().bind(
+                curr.centerYProperty().subtract(curr.centerYProperty().subtract(prev.centerYProperty()))
+        );
+
+        controlPoints.add(new ControlPoint(
+                prev.centerXProperty(),
+                prev.centerYProperty().add(curr.centerYProperty().subtract(prev.centerYProperty()))
+        ));
+        controlPoints.add(new ControlPoint(
+                curr.centerXProperty(),
+                curr.centerYProperty().subtract(curr.centerYProperty().subtract(prev.centerYProperty()))
+        ));
 
     }
 }
