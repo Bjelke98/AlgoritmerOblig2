@@ -5,10 +5,11 @@ import javafx.beans.property.DoubleProperty;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.CubicCurve;
+import no.oblig2.gruppe1.algoritmeroblig2.model.CanBeBTData;
 
 import java.util.ArrayList;
 
-public class ConnectedLine<E> extends CubicCurve {
+public class ConnectedLine<E extends CanBeBTData> extends CubicCurve {
 
     /**
      * Class for debugging line
