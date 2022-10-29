@@ -11,6 +11,9 @@ public interface Tree<E> extends Collection<E> {
 
     BST.TreeNode<E> getRoot();
 
+    BST.TreeNode<E> getNode(E e);
+    E get(E e);
+
     @Override
     default boolean isEmpty() {
         return size() == 0;
