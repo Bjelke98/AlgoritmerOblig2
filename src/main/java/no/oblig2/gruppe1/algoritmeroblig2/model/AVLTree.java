@@ -31,7 +31,7 @@ public class AVLTree<E extends Comparable<E>> extends BST<E>{
     @Override
     public boolean delete(E e) {
         TreeNode<E> parent = findParent(e);
-        TreeNode<E> current = parent.element.compareTo(e) < 0 ? parent.left : parent.right;
+        TreeNode<E> current = e.compareTo(parent.element) < 0 ? parent.left : parent.right;
         if (current == null) return false;
         balanceAndDelete(current, parent, e);
         size--;
