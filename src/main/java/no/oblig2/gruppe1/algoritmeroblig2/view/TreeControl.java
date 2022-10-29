@@ -27,8 +27,8 @@ public class TreeControl extends HBox implements TextVariables{
         setPadding(new Insets(10));
 
         insertTF.setOnAction(this::insertAction);
-        deleteBTN.setOnAction(this::deleteAction);
-        findBTN.setOnAction(this::findAction);
+        deleteTF.setOnAction(this::deleteAction);
+        findTF.setOnAction(this::findAction);
 
         insertBTN.setOnAction(this::insertAction);
         deleteBTN.setOnAction(this::deleteAction);
