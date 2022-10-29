@@ -30,21 +30,17 @@ public class AVLTree<E extends Comparable<E>> extends BST<E>{
     }
     @Override
     public boolean delete(E e) {
-        if(root == null) return false;
 
         TreeNode<E> parent = null;
         TreeNode<E> current = root;
-
         while (current != null){
             if (e.compareTo(current.element)<0){
                 parent = current;
-                current = current.right;
+                current = current.left;
             } else if (e.compareTo(current.element) > 0){
                 parent = current;
-                current = current.left;
-            }else {
-                break;
-            }
+                current = current.right;
+            } else break;
         }
         //findNode(current, parent, e);
         if (current == null) return false;
