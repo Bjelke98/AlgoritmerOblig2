@@ -30,21 +30,15 @@ public class AVLTree<E extends Comparable<E>> extends BST<E>{
     }
     @Override
     public boolean delete(E e) {
-
-        TreeNode<E> parent = null;
-        TreeNode<E> current = root;
-        while (current != null){
-            if (e.compareTo(current.element)<0){
-                parent = current;
-                current = current.left;
-            } else if (e.compareTo(current.element) > 0){
-                parent = current;
-                current = current.right;
-            } else break;
-        }
-        //findNode(current, parent, e);
+        TreeNode<E> parent = findParent(e);
+        TreeNode<E> current = parent.element.compareTo(e) < 0 ? parent.left : parent.right;
         if (current == null) return false;
+        balanceAndDelete(current, parent, e);
+        size--;
+        return true;
+    }
 
+    private void balanceAndDelete(TreeNode<E> current, TreeNode<E> parent, E e){
         if (current.left == null){
             if (parent == null){
                 root = current.right;
@@ -64,9 +58,7 @@ public class AVLTree<E extends Comparable<E>> extends BST<E>{
                 parentOfRightMost = rightMost;
                 rightMost = rightMost.right;
             }
-
             current.element = rightMost.element;
-
             if (parentOfRightMost.right == rightMost){
                 parentOfRightMost.right = rightMost.left;
             } else {
@@ -75,23 +67,22 @@ public class AVLTree<E extends Comparable<E>> extends BST<E>{
                 balancePath(parentOfRightMost.element);
             }
         }
-        size--;
-        return true;
     }
 
-    private void findNode(TreeNode<E> current, TreeNode<E> parent, E node){
-        if (current != null){
-            if (node.compareTo(current.element)<0){
-                parent = current;
-                current = current.right;
-            } else if (node.compareTo(current.element) > 0){
+    private TreeNode<E> findParent(E e){
+        TreeNode<E> parent = null;
+        TreeNode<E> current = root;
+        while (current != null){
+            if (e.compareTo(current.element)<0){
                 parent = current;
                 current = current.left;
-            }
-            findNode(current, parent, node);
+            } else if (e.compareTo(current.element) > 0){
+                parent = current;
+                current = current.right;
+            } else break;
         }
+        return parent;
     }
-
 
     private void balancePath(E e){
        balancePathRun(e, root, null);
