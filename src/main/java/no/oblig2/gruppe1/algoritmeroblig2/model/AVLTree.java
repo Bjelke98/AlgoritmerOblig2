@@ -38,10 +38,10 @@ public class AVLTree<E extends Comparable<E>> extends BST<E>{
         while (current != null){
             if (e.compareTo(current.element)<0){
                 parent = current;
-                current = current.right;
+                current = current.left;
             } else if (e.compareTo(current.element) > 0){
                 parent = current;
-                current = current.left;
+                current = current.right;
             }else {
                 break;
             }

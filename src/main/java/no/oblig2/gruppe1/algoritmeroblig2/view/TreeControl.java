@@ -18,6 +18,7 @@ public class TreeControl extends HBox implements TextVariables{
     private Button deleteBTN = new Button(DELETE_TXT);
     private Button findBTN = new Button(FIND_TXT);
 
+    // Variabler som brukes til listeners for bruker-input
     private SimpleIntegerProperty insert = new SimpleIntegerProperty();
     private SimpleIntegerProperty delete = new SimpleIntegerProperty();
     private SimpleIntegerProperty find = new SimpleIntegerProperty();
@@ -40,6 +41,10 @@ public class TreeControl extends HBox implements TextVariables{
         );
     }
 
+    /**
+     * Opretter tekstfelt med 5 columncount
+     * @return
+     */
     private static TextField numberInputTextField(){
         TextField tf = new TextField();
         tf.setPrefColumnCount(5);
@@ -47,19 +52,30 @@ public class TreeControl extends HBox implements TextVariables{
     }
 
 
-
+    /**
+     * Endrer verdi til "insert" og nullstiller TextField insertTF om input er gyldig Integer
+     * @param e
+     */
     private void insertAction(ActionEvent e){
         String txt = insertTF.getText();
         if(isInvalidInteger(txt)) return;
         insert.set(Integer.parseInt(txt));
         insertTF.clear();
     }
+    /**
+     * Endrer verdi til "delete" og nullstiller TextField deleteTF om input er gyldig Integer
+     * @param e
+     */
     private void deleteAction(ActionEvent e){
         String txt = deleteTF.getText();
         if(isInvalidInteger(txt)) return;
         delete.set(Integer.parseInt(txt));
         deleteTF.clear();
     }
+    /**
+     * Endrer verdi til "find" og nullstiller TextField findTF om input er gyldig Integer
+     * @param e
+     */
     private void findAction(ActionEvent e){
         String txt = deleteTF.getText();
         if(isInvalidInteger(txt)) return;
@@ -67,6 +83,11 @@ public class TreeControl extends HBox implements TextVariables{
         findTF.clear();
     }
 
+    /**
+     *Returnerer: kan input parses til integer?
+     * @param input
+     * @return
+     */
     private static boolean isInvalidInteger(String input){
         try {
             Integer.parseInt(input);
@@ -75,8 +96,6 @@ public class TreeControl extends HBox implements TextVariables{
             return true;
         }
     }
-
-
 
     public int getInsert() {
         return insert.get();
