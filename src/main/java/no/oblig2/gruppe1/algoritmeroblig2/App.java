@@ -1,35 +1,33 @@
 package no.oblig2.gruppe1.algoritmeroblig2;
 
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import no.oblig2.gruppe1.algoritmeroblig2.model.AVLTree;
-import no.oblig2.gruppe1.algoritmeroblig2.model.BST;
+import no.oblig2.gruppe1.algoritmeroblig2.model.BTData;
 import no.oblig2.gruppe1.algoritmeroblig2.view.BTView;
 import no.oblig2.gruppe1.algoritmeroblig2.view.TreeControl;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 public class App extends Application {
 
-    private final AVLTree<Integer> avl = new AVLTree<>();
-    BTView avlView;
+    private final AVLTree<BTData<Integer>> avl = new AVLTree<>();
+    private BTView<BTData<Integer>> avlView;
 
+    /**
+     * Startmetode for applikasjonen.
+     * @param stage the primary stage for this application, onto which
+     * the application scene can be set.
+     * Applications may create other stages, if needed, but they will not be
+     * primary stages.
+     * @throws IOException Kaster alle unntak slik at programmet ikke lukker ved en mindre feil.
+     */
     @Override
     public void start(Stage stage) throws IOException {
 
-        //avl.addAll(Arrays.asList(1));
-        avlView = new BTView(avl);
+        avlView = new BTView<>(avl);
 
         TreeControl treeControl = new TreeControl();
 
@@ -45,16 +43,17 @@ public class App extends Application {
         avlView.displayTree();
 
         treeControl.insertProperty().addListener((observable, oldValue, newValue) -> {
-            avl.insert(newValue.intValue());
+            avl.insert(new BTData<>(newValue.intValue()));
             avlView.displayTree();
         });
         treeControl.deleteProperty().addListener((observable, oldValue, newValue) -> {
-            avl.delete(newValue.intValue());
+            avl.delete(new BTData<>(newValue.intValue()));
             avlView.displayTree();
         });
         treeControl.findProperty().addListener((observable, oldValue, newValue) -> {
-
-            avlView.displayTree();
+            avlView.clearSelect();
+            if(avl.search(new BTData<>(newValue.intValue())))
+                avlView.select(avl.get(new BTData<>(newValue.intValue())));
         });
 
     }

@@ -1,48 +1,40 @@
 package no.oblig2.gruppe1.algoritmeroblig2.view;
 
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.CubicCurve;
 import no.oblig2.gruppe1.algoritmeroblig2.model.BST;
+import no.oblig2.gruppe1.algoritmeroblig2.model.CanBeBTData;
 
-public class BTView extends Pane {
+/**
+ * View klasse for fremvisning av selvet treet.
+ * Klassen har ansvar for å tegne ut treet riktig.
+ * @param <E> Krever å implementere Comparable for å kunne behandle data i et binær tre og krever CanBeBTData for å kunne sette bakgrunnsfarge ved søk fuksjon.
+ */
+public class BTView<E extends Comparable<E> & CanBeBTData> extends Pane {
 
-    enum Status {
-        EMPTY("Ingen elementer i dette treet"),
-        NOT_EMPTY("Treet har elementer"),
-        BLANK("");
+    private final double radius = 15;
+    private final double vGap = 50;
+    private final BST<E> tree;
 
-        public final String value;
-        Status(String value){
-            this.value = value;
-        }
-        public String withSize(int size){
-            return value+" ("+size+")";
-        }
-    }
+    private E selected;
 
-    private Status status = Status.BLANK;
-    private double radius = 15; // Kan endres i GUI
-    private double vGap = 50; // Kan endres i GUI
-
-    private BST<Integer> tree = new BST<>();
-
-    public BTView(){
-        setStatus(Status.EMPTY);
-    }
-
-    public BTView(BST<Integer> tree){
+    /**
+     * Konstruktør for å opprette panelet som treet vises i. Krever å ta inn et binær tre BST eller andre utvidelser av BST.
+     * @param tree Binærtre som skal visualiseres.
+     */
+    public BTView(BST<E> tree){
         this.tree = tree;
-        setStatus(tree.size()>0?Status.NOT_EMPTY:Status.EMPTY);
         setMinWidth(1200);
         setBackground(new Background(new BackgroundFill(Color.BEIGE, CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
+    /**
+     * Metode for å tegne ut alle noder i treet.
+     */
     public void displayTree(){
         getChildren().clear();
         if (tree.getRoot() != null) {
@@ -50,8 +42,8 @@ public class BTView extends Pane {
         }
     }
 
-    private void displayTree(BST.TreeNode<Integer> root, double x, double y, double hGap, DisplayNode<Integer> prev){
-        DisplayNode<Integer> curr = new DisplayNode<>(root.element, x, y, radius);
+    private void displayTree(BST.TreeNode<E> root, double x, double y, double hGap, DisplayNode<E> prev){
+        DisplayNode<E> curr = new DisplayNode<>(root.element, x, y, radius);
         if (root.left != null){
             displayTree(root.left, x-hGap, y+vGap, hGap/2, curr);
         }
@@ -64,15 +56,28 @@ public class BTView extends Pane {
         getChildren().addAll(curr, curr.centerText);
     }
 
-    private void drawConnectingLine(DisplayNode<Integer> prev, DisplayNode<Integer> curr){
-        ConnectedLine<Integer> line = new ConnectedLine<>(prev, curr);
+    private void drawConnectingLine(DisplayNode<E> prev, DisplayNode<E> curr){
+        ConnectedLine<E> line = new ConnectedLine<>(prev, curr);
         getChildren().add(line);
 
         // Viser Cubic control points for debug.
-//        getChildren().addAll(line.controlPoints);
+        // getChildren().addAll(line.controlPoints);
     }
 
-    private void setStatus(Status status) {
-        this.status = status;
+    /**
+     * Velger node som skal settes bakgrunn på (Eksempel ved find)
+     * @param selected Node som skal utheves.
+     */
+    public void select(E selected) {
+        this.selected = selected;
+        selected.setSelected(true);
+    }
+
+    /**
+     * Fjerner bakgrunn på node som sist ble vist.
+     */
+    public void clearSelect() {
+        if(selected!=null)
+            selected.setSelected(false);
     }
 }
