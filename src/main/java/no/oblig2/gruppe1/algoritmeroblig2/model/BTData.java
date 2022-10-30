@@ -2,10 +2,19 @@ package no.oblig2.gruppe1.algoritmeroblig2.model;
 
 import javafx.beans.property.SimpleBooleanProperty;
 
+/**
+ * Data klasse som kreves for å sette treet inn i en visuell visning.
+ * @param <E>
+ */
 public class BTData<E extends Comparable<E>> implements Comparable<BTData<E>>, CanBeBTData{
 
-    SimpleBooleanProperty selected = new SimpleBooleanProperty();
+    private final SimpleBooleanProperty selected = new SimpleBooleanProperty();
     private final E value;
+
+    /**
+     * Konstruktør for dataklasse
+     * @param value verdi
+     */
     public BTData(E value){
         this.value = value;
         selected.set(false);
