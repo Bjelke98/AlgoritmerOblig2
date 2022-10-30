@@ -7,11 +7,22 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import no.oblig2.gruppe1.algoritmeroblig2.model.CanBeBTData;
 
+/**
+ * Klasse for å vise frem en node i treet.
+ * @param <E>
+ */
 public class DisplayNode<E extends CanBeBTData> extends Circle {
 
     public Text centerText;
     private E element;
 
+    /**
+     * Konstruktør for å opprette sirkler med tekst.
+     * @param element Elementet som skal vises
+     * @param x startposisjon til node x
+     * @param y startposisjon til node y
+     * @param radius node radius
+     */
     public DisplayNode(E element, double x, double y, double radius) {
         super(x, y, radius);
         this.element = element;

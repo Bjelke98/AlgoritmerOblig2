@@ -16,6 +16,14 @@ public class App extends Application {
     private final AVLTree<BTData<Integer>> avl = new AVLTree<>();
     private BTView<BTData<Integer>> avlView;
 
+    /**
+     * Startmetode for applikasjonen.
+     * @param stage the primary stage for this application, onto which
+     * the application scene can be set.
+     * Applications may create other stages, if needed, but they will not be
+     * primary stages.
+     * @throws IOException Kaster alle unntak slik at programmet ikke lukker ved en mindre feil.
+     */
     @Override
     public void start(Stage stage) throws IOException {
 
@@ -44,7 +52,8 @@ public class App extends Application {
         });
         treeControl.findProperty().addListener((observable, oldValue, newValue) -> {
             avlView.clearSelect();
-            avlView.select(avl.get(new BTData<>(newValue.intValue())));
+            if(avl.search(new BTData<>(newValue.intValue())))
+                avlView.select(avl.get(new BTData<>(newValue.intValue())));
         });
 
     }

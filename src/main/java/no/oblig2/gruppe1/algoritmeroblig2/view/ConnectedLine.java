@@ -9,10 +9,14 @@ import no.oblig2.gruppe1.algoritmeroblig2.model.CanBeBTData;
 
 import java.util.ArrayList;
 
+/**
+ * Klasse for å tegne linje mellom 2 noder.
+ * @param <E>
+ */
 public class ConnectedLine<E extends CanBeBTData> extends CubicCurve {
 
     /**
-     * Class for debugging line
+     * Klasse for debugging av kontrollpunkt for kurve fremvisning.
      */
     static class ControlPoint extends Circle {
         ControlPoint(DoubleProperty x, DoubleBinding y){
@@ -24,8 +28,17 @@ public class ConnectedLine<E extends CanBeBTData> extends CubicCurve {
         }
     }
 
+    /**
+     * Liste for å vise frem kontroll punkt.
+     */
     public ArrayList<ControlPoint> controlPoints = new ArrayList<>();
 
+    /**
+     * Konstruktør for å opprette linje mellom 2 noder.
+     * (Notat) Bruker bindings for å automatisk flytte linje etter posisjonen til noden.
+     * @param prev forrige node
+     * @param curr siste node
+     */
     public ConnectedLine(DisplayNode<E> prev, DisplayNode<E> curr){
 
         setFill(Color.TRANSPARENT);
@@ -34,13 +47,9 @@ public class ConnectedLine<E extends CanBeBTData> extends CubicCurve {
 
         startXProperty().bind(prev.centerXProperty());
         startYProperty().bind(prev.centerYProperty());
-        // connect to edges
-        //startYProperty().bind(prev.centerYProperty().add(prev.radiusProperty()));
 
         endXProperty().bind(curr.centerXProperty());
         endYProperty().bind(curr.centerYProperty());
-        // connect to edges
-        // endYProperty().bind(curr.centerYProperty().subtract(curr.radiusProperty()));
 
         controlX1Property().bind(
                 prev.centerXProperty()
