@@ -176,6 +176,24 @@ public class BST<E extends Comparable<E>> implements Tree<E> {
     }
 
     @Override
+    public TreeNode<E> getNode(E e) {
+        TreeNode<E> current = root;
+        while (current != null) {
+            if (e.compareTo(current.element) < 0)
+                current = current.left;
+            else if (e.compareTo(current.element) > 0)
+                current = current.right;
+            else return current;
+        }
+        return null;
+    }
+
+    @Override
+    public E get(E e) {
+        return getNode(e).element;
+    }
+
+    @Override
     public void clear() {
         root = null;
         size = 0;

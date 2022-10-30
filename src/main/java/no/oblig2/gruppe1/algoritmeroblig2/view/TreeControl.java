@@ -27,12 +27,13 @@ public class TreeControl extends HBox implements TextVariables{
         setPadding(new Insets(10));
 
         insertTF.setOnAction(this::insertAction);
-        deleteBTN.setOnAction(this::insertAction);
-        findBTN.setOnAction(this::insertAction);
+        deleteTF.setOnAction(this::deleteAction);
+        findTF.setOnAction(this::findAction);
 
         insertBTN.setOnAction(this::insertAction);
         deleteBTN.setOnAction(this::deleteAction);
         findBTN.setOnAction(this::findAction);
+
         getChildren().addAll(
                 insertTF, insertBTN,
                 deleteTF, deleteBTN,
@@ -45,8 +46,6 @@ public class TreeControl extends HBox implements TextVariables{
         tf.setPrefColumnCount(5);
         return tf;
     }
-
-
 
     private void insertAction(ActionEvent e){
         String txt = insertTF.getText();
@@ -61,7 +60,7 @@ public class TreeControl extends HBox implements TextVariables{
         deleteTF.clear();
     }
     private void findAction(ActionEvent e){
-        String txt = deleteTF.getText();
+        String txt = findTF.getText();
         if(isInvalidInteger(txt)) return;
         find.set(Integer.parseInt(txt));
         findTF.clear();
@@ -72,6 +71,7 @@ public class TreeControl extends HBox implements TextVariables{
             Integer.parseInt(input);
             return false;
         } catch (NumberFormatException e){
+            System.out.println("Invalid Input");
             return true;
         }
     }
