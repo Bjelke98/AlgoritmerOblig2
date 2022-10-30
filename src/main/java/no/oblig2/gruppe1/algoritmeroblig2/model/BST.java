@@ -43,6 +43,12 @@ public class BST<E extends Comparable<E>> implements Tree<E> {
         return false;
     }
 
+    /**
+     * setter inn element i treet
+     * med mindre det er dublikat
+     * @param e
+     * @return
+     */
     @Override
     public boolean insert(E e) {
         if (root == null) root = createNewNode(e);
