@@ -16,6 +16,8 @@ public class App extends Application {
     private final AVLTree<BTData<Integer>> avl = new AVLTree<>();
     private BTView<BTData<Integer>> avlView;
 
+    private static final int GENERATE_AMMOUNT = 10;
+
     /**
      * Startmetode for applikasjonen.
      * @param stage the primary stage for this application, onto which
@@ -43,17 +45,46 @@ public class App extends Application {
         avlView.displayTree();
 
         treeControl.insertProperty().addListener((observable, oldValue, newValue) -> {
-            avl.insert(new BTData<>(newValue.intValue()));
+            if(avl.insert(new BTData<>(newValue.intValue()))){
+                treeControl.setStatusText("Element inserted");
+            } else {
+                treeControl.setStatusText("Element is duplicated or not supported");
+            }
             avlView.displayTree();
         });
         treeControl.deleteProperty().addListener((observable, oldValue, newValue) -> {
-            avl.delete(new BTData<>(newValue.intValue()));
+            if(avl.delete(new BTData<>(newValue.intValue()))){
+                treeControl.setStatusText("Element deleted");
+            } else {
+                treeControl.setStatusText("Element not found");
+            }
             avlView.displayTree();
         });
         treeControl.findProperty().addListener((observable, oldValue, newValue) -> {
             avlView.clearSelect();
-            if(avl.search(new BTData<>(newValue.intValue())))
+            if(avl.search(new BTData<>(newValue.intValue()))){
                 avlView.select(avl.get(new BTData<>(newValue.intValue())));
+                treeControl.setStatusText("Element found");
+            } else {
+                treeControl.setStatusText("Element not found");
+
+            }
+        });
+
+        treeControl.getClearBTN().setOnAction(e-> {
+            avl.clear();
+            avlView.displayTree();
+            treeControl.setStatusText("Cleared");
+        });
+        treeControl.getGenerateBTN().setOnAction(e->{
+            int inserted = 0;
+            for (int i = 0; i<GENERATE_AMMOUNT; i++){
+                if(avl.insert(new BTData<>((int)(Math.random()*100)))){
+                    inserted++;
+                }
+            }
+            treeControl.setStatusText("Generated: "+inserted+" of "+GENERATE_AMMOUNT+" requested");
+            avlView.displayTree();
         });
 
     }

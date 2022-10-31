@@ -4,4 +4,6 @@ public interface TextVariables {
     String INSERT_TXT = "Insert";
     String DELETE_TXT = "Delete";
     String FIND_TXT = "Find";
+    String CLEAR_TXT = "Clear";
+    String GENERATE_TXT = "Generate";
 }

@@ -4,9 +4,9 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 public class TreeControl extends HBox implements TextVariables{
 
@@ -17,6 +17,10 @@ public class TreeControl extends HBox implements TextVariables{
     private Button insertBTN = new Button(INSERT_TXT);
     private Button deleteBTN = new Button(DELETE_TXT);
     private Button findBTN = new Button(FIND_TXT);
+    private Button clearBTN = new Button(CLEAR_TXT);
+    private Button generateBTN = new Button(GENERATE_TXT);
+
+    private Label statusText = new Label();
 
     // Variabler som brukes til listeners for bruker-input
     private SimpleIntegerProperty insert = new SimpleIntegerProperty();
@@ -38,7 +42,10 @@ public class TreeControl extends HBox implements TextVariables{
         getChildren().addAll(
                 insertTF, insertBTN,
                 deleteTF, deleteBTN,
-                findTF, findBTN
+                findTF, findBTN,
+                clearBTN,
+                generateBTN,
+                statusText
         );
     }
 
@@ -121,5 +128,17 @@ public class TreeControl extends HBox implements TextVariables{
 
     public SimpleIntegerProperty findProperty() {
         return find;
+    }
+
+    public Button getGenerateBTN() {
+        return generateBTN;
+    }
+
+    public Button getClearBTN() {
+        return clearBTN;
+    }
+
+    public void setStatusText(String text) {
+        statusText.setText("Status: "+text);
     }
 }
